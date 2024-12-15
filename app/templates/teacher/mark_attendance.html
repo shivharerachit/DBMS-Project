@@ -1,0 +1,44 @@
+{% extends "base.html" %}
+
+{% block title %}Mark Attendance{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h4 class="mb-0">Mark Student Attendance</h4>
+    </div>
+    <div class="card-body">
+        <form method="POST">
+            <div class="mb-3">
+                <label for="class_id" class="form-label">Class</label>
+                <select class="form-select" id="class_id" name="class_id" required>
+                    <option value="">Select Class</option>
+                    {% for class in classes %}
+                        <option value="{{ class.class_id }}" {% if class.class_id == selected_class %}selected{% endif %}>
+                            {{ class.class_name }}
+                        </option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="student_id" class="form-label">Student</label>
+                <select class="form-select" id="student_id" name="student_id" required>
+                    <option value="">Select Student</option>
+                    {% for student in students %}
+                        <option value="{{ student.user_id }}">{{ student.name }}</option>
+                    {% endfor %}
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="status" class="form-label">Status</label>
+                <select class="form-select" id="status" name="status" required>
+                    <option value="Present">Present</option>
+                    <option value="Absent">Absent</option>
+                    <option value="Late">Late</option>
+                </select>
+            </div>
+            <button type="submit" class="btn btn-primary">Mark Attendance</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

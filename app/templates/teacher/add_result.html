@@ -1,0 +1,45 @@
+{% extends "base.html" %}
+
+{% block title %}Add Result{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h4 class="mb-0">Add Student Result</h4>
+    </div>
+    <div class="card-body">
+        <form method="POST">
+            <div class="mb-3">
+                <label for="class_id" class="form-label">Class</label>
+                <select class="form-select" id="class_id" name="class_id" required>
+                    <option value="">Select Class</option>
+                    <!-- Add class options dynamically -->
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="student_id" class="form-label">Student</label>
+                <select class="form-select" id="student_id" name="student_id" required>
+                    <option value="">Select Student</option>
+                    <!-- Add student options dynamically -->
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="subject_id" class="form-label">Subject</label>
+                <select class="form-select" id="subject_id" name="subject_id" required>
+                    <option value="">Select Subject</option>
+                    <!-- Add subject options dynamically -->
+                </select>
+            </div>
+            <div class="mb-3">
+                <label for="marks_obtained" class="form-label">Marks Obtained</label>
+                <input type="number" class="form-control" id="marks_obtained" name="marks_obtained" required>
+            </div>
+            <div class="mb-3">
+                <label for="max_marks" class="form-label">Maximum Marks</label>
+                <input type="number" class="form-control" id="max_marks" name="max_marks" required>
+            </div>
+            <button type="submit" class="btn btn-primary">Add Result</button>
+        </form>
+    </div>
+</div>
+{% endblock %}

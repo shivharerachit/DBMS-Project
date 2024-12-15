@@ -1,0 +1,146 @@
+{% extends "base.html" %}
+{% block title %}Exam Management{% endblock %}
+{% block content %}
+<div class="card">
+  <div class="card-header">
+    <div class="d-flex justify-content-between align-items-center">
+      <h4 class="mb-0">Exam Management</h4>
+      <button type="button" class="btn btn-primary" data-bs-toggle="modal" data-bs-target="#addExamModal">
+        Add Exam
+      </button>
+    </div>
+  </div>
+  <div class="card-body">
+    <div class="mb-3">
+      <label for="filterClass" class="form-label">Filter by Class:</label>
+      <select class="form-select" id="filterClass" onchange="window.location.href='{{ url_for('admin.exams') }}?class_id=' + this.value">
+        <option value="">All Classes</option>
+        {% for class in classes %}
+        <option value="{{ class.class_id }}" {% if selected_class == class.class_id %}selected{% endif %}>
+          {{ class.class_name }}
+        </option>
+        {% endfor %}
+      </select>
+    </div>
+
+    <div class="table-responsive">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>Exam Name</th>
+            <th>Class</th>
+            <th>Exam Date</th>
+            <th>Actions</th>
+          </tr>
+        </thead>
+        <tbody>
+          {% for exam in exams %}
+          <tr>
+            <td>{{ exam.exam_name }}</td>
+            <td>{{ exam.class_name }}</td>
+            <td>{{ exam.exam_date }}</td>
+            <td>
+              <button 
+                class="btn btn-sm btn-outline-primary"
+                data-bs-toggle="modal"
+                data-bs-target="#editExamModal{{ exam.exam_id }}"
+              >
+                Edit
+              </button>
+              <form
+                action="{{ url_for('admin.delete_exam', exam_id=exam.exam_id) }}"
+                method="POST"
+                style="display: inline"
+                onsubmit="return confirm('Are you sure you want to delete this exam?');"
+              >
+                <input type="hidden" name="class_id" value="{{ exam.class_id }}">
+                <button type="submit" class="btn btn-sm btn-outline-danger">Delete</button>
+              </form>
+            </td>
+          </tr>
+
+          <!-- Edit Exam Modal -->
+          <div class="modal fade" id="editExamModal{{ exam.exam_id }}" tabindex="-1">
+            <div class="modal-dialog">
+              <div class="modal-content">
+                <div class="modal-header">
+                  <h5 class="modal-title">Edit Exam</h5>
+                  <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+                </div>
+                <form method="POST" action="{{ url_for('admin.edit_exam', exam_id=exam.exam_id) }}">
+                  <div class="modal-body">
+                    <div class="mb-3">
+                      <label for="exam_name" class="form-label">Exam Name</label>
+                      <input type="text" class="form-control" id="exam_name" name="exam_name" 
+                             value="{{ exam.exam_name }}" required>
+                    </div>
+                    <div class="mb-3">
+                      <label for="class_id" class="form-label">Class</label>
+                      <select class="form-select" id="class_id" name="class_id" required>
+                        {% for class in classes %}
+                        <option value="{{ class.class_id }}" {% if class.class_id == exam.class_id %}selected{% endif %}>
+                          {{ class.class_name }}
+                        </option>
+                        {% endfor %}
+                      </select>
+                    </div>
+                    <div class="mb-3">
+                      <label for="exam_date" class="form-label">Exam Date</label>
+                      <input type="date" class="form-control" id="exam_date" name="exam_date" 
+                             value="{{ exam.exam_date }}" required>
+                    </div>
+                  </div>
+                  <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                    <button type="submit" class="btn btn-primary">Save Changes</button>
+                  </div>
+                </form>
+              </div>
+            </div>
+          </div>
+          {% endfor %}
+        </tbody>
+      </table>
+    </div>
+  </div>
+</div>
+
+<!-- Add Exam Modal -->
+<div class="modal fade" id="addExamModal" tabindex="-1">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title">Add New Exam</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <form method="POST" action="{{ url_for('admin.add_exam') }}">
+        <div class="modal-body">
+          <div class="mb-3">
+            <label for="exam_name" class="form-label">Exam Name</label>
+            <input type="text" class="form-control" id="exam_name" name="exam_name" required>
+          </div>
+          <div class="mb-3">
+            <label for="class_id" class="form-label">Class</label>
+            <select class="form-select" id="class_id" name="class_id" required>
+              <option value="">Select Class</option>
+              {% for class in classes %}
+              <option value="{{ class.class_id }}" {% if selected_class == class.class_id %}selected{% endif %}>
+                {{ class.class_name }}
+              </option>
+              {% endfor %}
+            </select>
+          </div>
+          <div class="mb-3">
+            <label for="exam_date" class="form-label">Exam Date</label>
+            <input type="date" class="form-control" id="exam_date" name="exam_date" required>
+          </div>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+          <button type="submit" class="btn btn-primary">Create Exam</button>
+        </div>
+      </form>
+    </div>
+  </div>
+</div>
+{% endblock %}

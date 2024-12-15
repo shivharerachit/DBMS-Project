@@ -1,0 +1,58 @@
+{% extends "base.html" %}
+
+{% block title %}Welcome - School Management System{% endblock %}
+
+{% block content %}
+<div class="container">
+    <div class="row justify-content-center text-center my-5">
+        <div class="col-md-8">
+            <h1 class="display-4 mb-4">School Management System</h1>
+            <p class="lead mb-4">A comprehensive solution for managing students, teachers, and academic activities.</p>
+            <div class="d-grid gap-3 d-sm-flex justify-content-sm-center">
+                {% if session.get('user_role') == 'student' %}
+                    <h1>Hello {{ session.get('user_name') }}</h1>
+                    <br>
+                    <a href="{{ url_for('student.dashboard') }}" class="btn btn-primary btn-lg px-4 gap-3">Dashboard</a>
+                {% elif session.get('user_role') == 'admin' %}
+                    <h1>Hello {{ session.get('user_name') }}</h1>
+                    <br>
+                    <a href="{{ url_for('admin.dashboard') }}" class="btn btn-primary btn-lg px-4 gap-3">Dashboard</a>
+                {% elif session.get('user_role') == 'teacher' %}
+                    <h1>Hello {{ session.get('user_name') }}</h1>
+                    <br>
+                    <a href="{{ url_for('teacher.dashboard') }}" class="btn btn-primary btn-lg px-4 gap-3">Dashboard</a>
+                {% else %}
+                    <a href="{{ url_for('auth.login') }}" class="btn btn-primary btn-lg px-4 gap-3">Login</a>
+                {% endif %}
+            </div>
+        </div>
+    </div>
+
+    <div class="row mt-5">
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <h3 class="card-title">Students</h3>
+                    <p class="card-text">Access your timetable, view results, and track attendance records.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <h3 class="card-title">Teachers</h3>
+                    <p class="card-text">Manage classes, mark attendance, and update student results.</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card h-100">
+                <div class="card-body text-center">
+                    <h3 class="card-title">Administration</h3>
+                    <p class="card-text">Oversee school operations, manage users, and generate reports.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+{% endblock %}

@@ -1,0 +1,35 @@
+{% extends "base.html" %}
+
+{% block title %}Teacher Schedule{% endblock %}
+
+{% block content %}
+<div class="card">
+    <div class="card-header">
+        <h4 class="mb-0">Teaching Schedule</h4>
+    </div>
+    <div class="card-body">
+        <div class="table-responsive">
+            <table class="table table-bordered">
+                <thead>
+                    <tr>
+                        <th>Class</th>
+                        <th>Subject</th>
+                        <th>Day</th>
+                        <th>Time</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    {% for class in schedule %}
+                    <tr>
+                        <td>{{ class.class_name }}</td>
+                        <td>{{ class.subject_name }}</td>
+                        <td>{{ class.day }}</td>
+                        <td>{{ class.start_time }} - {{ class.end_time }}</td>
+                    </tr>
+                    {% endfor %}
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
+{% endblock %}

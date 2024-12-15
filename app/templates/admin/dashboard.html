@@ -1,0 +1,62 @@
+{% extends "base.html" %}
+
+{% block title %}Admin Dashboard{% endblock %}
+
+{% block content %}
+<div class="row" >
+    <div class="col-md-4 mt-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">User Management</h5>
+                <p class="card-text">Manage users and their roles</p>
+                <a href="{{ url_for('admin.users') }}" class="btn btn-primary">Manage Users</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mt-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Class Management</h5>
+                <p class="card-text">Manage Classes</p>
+                <a href="{{ url_for('admin.classes') }}" class="btn btn-primary">Manage Classes</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mt-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Subject Management</h5>
+                <p class="card-text">Manage Subjects</p>
+                <a href="{{ url_for('admin.subjects') }}" class="btn btn-primary">Manage Subjects</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mt-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Time Table</h5>
+                <p class="card-text">Manage Time Table</p>
+                <a href="{{ url_for('admin.timetable') }}" class="btn btn-primary">Manage Time Table</a>
+            </div>
+        </div>
+    </div>
+    <div class="col-md-4 mt-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title">Exam Management</h5>
+                <p class="card-text">Manage Exams</p>
+                <a href="{{ url_for('admin.exams') }}" class="btn btn-primary">Manage Exams</a>
+            </div>
+        </div>
+    </div>
+    <!-- <div class="col-md-4">
+        <div class="card">
+            <div class="card-body">
+                <h5 class="card-title"></h5>
+                <p class="card-text">View system reports and statistics</p>
+                <a href="#" class="btn btn-primary">View Reports</a>
+            </div>
+        </div> -->
+    </div>
+</div>
+{% endblock %}
